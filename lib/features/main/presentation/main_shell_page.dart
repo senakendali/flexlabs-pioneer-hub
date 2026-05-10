@@ -26,7 +26,9 @@ class _MainShellPageState extends State<MainShellPage> {
     HomePage(
       authService: widget.authService,
     ),
-    const CommunityPage(),
+    CommunityPage(
+      authService: widget.authService,
+    ),
     const MentoringPage(),
     const ProfilePage(),
   ];
