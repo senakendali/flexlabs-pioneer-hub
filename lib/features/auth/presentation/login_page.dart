@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_theme.dart';
-import '../../home/presentation/home_page.dart';
+import '../../main/presentation/main_shell_page.dart';
 import '../data/auth_service.dart';
 
 class LoginPage extends StatefulWidget {
@@ -57,13 +57,15 @@ class _LoginPageState extends State<LoginPage> {
 
       Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
-          builder: (_) => HomePage(
+          builder: (_) => MainShellPage(
             authService: widget.authService,
           ),
         ),
         (route) => false,
       );
     } catch (error) {
+      if (!mounted) return;
+
       setState(() {
         errorMessage = error.toString().replaceFirst('Exception: ', '');
       });
@@ -98,13 +100,13 @@ class _LoginPageState extends State<LoginPage> {
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(18),
         borderSide: const BorderSide(
-          color: Color(0xFFE5E1EF),
+          color: AppTheme.border,
         ),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(18),
         borderSide: const BorderSide(
-          color: Color(0xFFE5E1EF),
+          color: AppTheme.border,
         ),
       ),
       focusedBorder: OutlineInputBorder(
@@ -125,10 +127,10 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           children: [
             SizedBox(
-              height: 245,
+              height: 235,
               width: double.infinity,
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(28, 24, 28, 18),
+                padding: const EdgeInsets.fromLTRB(28, 24, 28, 14),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -147,16 +149,16 @@ class _LoginPageState extends State<LoginPage> {
                         );
                       },
                     ),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 22),
                     const Text(
                       'Pioneer Hub',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 32,
                         height: 1.1,
-                        fontWeight: FontWeight.w800,
+                        fontWeight: FontWeight.w900,
                         color: Colors.white,
-                        letterSpacing: -0.3,
+                        letterSpacing: -0.4,
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -167,14 +169,13 @@ class _LoginPageState extends State<LoginPage> {
                         fontSize: 15,
                         height: 1.5,
                         color: Color(0xFFE9DFFC),
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ],
                 ),
               ),
             ),
-
             Expanded(
               child: Container(
                 width: double.infinity,
@@ -186,16 +187,19 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 child: SingleChildScrollView(
-                  padding: const EdgeInsets.fromLTRB(24, 30, 24, 24),
+                  padding: const EdgeInsets.fromLTRB(24, 28, 24, 24),
                   child: Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(24),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(28),
+                      border: Border.all(
+                        color: AppTheme.border,
+                      ),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.06),
+                          color: Colors.black.withOpacity(0.055),
                           blurRadius: 24,
                           offset: const Offset(0, 12),
                         ),
@@ -205,18 +209,18 @@ class _LoginPageState extends State<LoginPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                          'Login',
+                          'Sign in',
                           style: TextStyle(
                             fontSize: 28,
                             height: 1.1,
-                            fontWeight: FontWeight.w800,
+                            fontWeight: FontWeight.w900,
                             color: AppTheme.textDark,
                             letterSpacing: -0.4,
                           ),
                         ),
                         const SizedBox(height: 8),
                         const Text(
-                          'Access your learning community, mentoring, and announcements.',
+                          'Access your student community, mentoring, notes, and academic documents.',
                           style: TextStyle(
                             fontSize: 14,
                             height: 1.6,
@@ -225,7 +229,6 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                         const SizedBox(height: 22),
-
                         if (errorMessage != null) ...[
                           Container(
                             width: double.infinity,
@@ -241,13 +244,12 @@ class _LoginPageState extends State<LoginPage> {
                               errorMessage!,
                               style: const TextStyle(
                                 color: Color(0xFFB42318),
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.w700,
                               ),
                             ),
                           ),
                           const SizedBox(height: 16),
                         ],
-
                         TextField(
                           controller: emailController,
                           keyboardType: TextInputType.emailAddress,
@@ -258,7 +260,6 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                         const SizedBox(height: 14),
-
                         TextField(
                           controller: passwordController,
                           obscureText: obscurePassword,
@@ -284,9 +285,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                         ),
-
                         const SizedBox(height: 22),
-
                         SizedBox(
                           width: double.infinity,
                           height: 54,
@@ -295,6 +294,8 @@ class _LoginPageState extends State<LoginPage> {
                             style: FilledButton.styleFrom(
                               backgroundColor: AppTheme.primary,
                               foregroundColor: Colors.white,
+                              disabledBackgroundColor:
+                                  AppTheme.primary.withOpacity(0.55),
                               elevation: 0,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(999),
@@ -313,14 +314,12 @@ class _LoginPageState extends State<LoginPage> {
                                     'Sign In',
                                     style: TextStyle(
                                       fontSize: 15,
-                                      fontWeight: FontWeight.w800,
+                                      fontWeight: FontWeight.w900,
                                     ),
                                   ),
                           ),
                         ),
-
                         const SizedBox(height: 18),
-
                         const Center(
                           child: Text(
                             'Powered by Flexlabs Academy',
@@ -328,7 +327,7 @@ class _LoginPageState extends State<LoginPage> {
                             style: TextStyle(
                               color: AppTheme.textMuted,
                               fontSize: 13,
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),

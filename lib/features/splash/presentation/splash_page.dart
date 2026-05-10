@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../auth/data/auth_service.dart';
 import '../../auth/presentation/login_page.dart';
-import '../../home/presentation/home_page.dart';
+import '../../main/presentation/main_shell_page.dart';
 
 class SplashPage extends StatefulWidget {
   final AuthService authService;
@@ -34,8 +34,12 @@ class _SplashPageState extends State<SplashPage> {
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (_) => isLoggedIn
-            ? HomePage(authService: widget.authService)
-            : LoginPage(authService: widget.authService),
+            ? MainShellPage(
+                authService: widget.authService,
+              )
+            : LoginPage(
+                authService: widget.authService,
+              ),
       ),
     );
   }
@@ -53,7 +57,7 @@ class _SplashPageState extends State<SplashPage> {
               children: [
                 Image.asset(
                   'assets/images/flexlabs-logo-white.png',
-                  width: 230,
+                  width: 235,
                   fit: BoxFit.contain,
                   errorBuilder: (context, error, stackTrace) {
                     return const Text(
@@ -73,7 +77,7 @@ class _SplashPageState extends State<SplashPage> {
                   style: TextStyle(
                     fontSize: 32,
                     height: 1.1,
-                    fontWeight: FontWeight.w800,
+                    fontWeight: FontWeight.w900,
                     color: Colors.white,
                     letterSpacing: -0.4,
                   ),
@@ -86,7 +90,7 @@ class _SplashPageState extends State<SplashPage> {
                     fontSize: 15,
                     height: 1.5,
                     color: Color(0xFFE9DFFC),
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
                 const SizedBox(height: 44),

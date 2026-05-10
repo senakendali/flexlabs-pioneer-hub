@@ -89,7 +89,6 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          bottomNavigationBar: const _FloatingBottomNavBar(),
         );
       },
     );
@@ -426,7 +425,7 @@ class _HomeContent extends StatelessWidget {
       ),
       child: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
-        padding: const EdgeInsets.fromLTRB(20, 24, 20, 124),
+        padding: const EdgeInsets.fromLTRB(20, 24, 20, 28),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -710,17 +709,19 @@ class _ActionRequiredSection extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(width: 10),
+              SizedBox(width: 10),
               Container(
-                padding: const EdgeInsets.symmetric(
+                padding: EdgeInsets.symmetric(
                   horizontal: 10,
                   vertical: 7,
                 ),
                 decoration: BoxDecoration(
                   color: AppTheme.primaryLight,
-                  borderRadius: BorderRadius.circular(999),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(999),
+                  ),
                 ),
-                child: const Text(
+                child: Text(
                   'Now',
                   style: TextStyle(
                     fontSize: 11,
@@ -1150,118 +1151,6 @@ class _RoomCard extends StatelessWidget {
                   ),
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _FloatingBottomNavBar extends StatelessWidget {
-  const _FloatingBottomNavBar();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: AppTheme.background,
-      padding: const EdgeInsets.fromLTRB(20, 0, 20, 18),
-      child: SafeArea(
-        top: false,
-        child: Container(
-          height: 72,
-          padding: const EdgeInsets.symmetric(
-            horizontal: 18,
-            vertical: 10,
-          ),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(32),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.08),
-                blurRadius: 24,
-                offset: const Offset(0, 10),
-              ),
-            ],
-          ),
-          child: const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _FloatingNavItem(
-                icon: Icons.home_rounded,
-                label: 'Home',
-                isActive: true,
-              ),
-              _FloatingNavItem(
-                icon: Icons.forum_rounded,
-                label: 'Community',
-              ),
-              _FloatingNavItem(
-                icon: Icons.video_call_rounded,
-                label: 'Mentor',
-              ),
-              _FloatingNavItem(
-                icon: Icons.person_rounded,
-                label: 'Profile',
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _FloatingNavItem extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final bool isActive;
-
-  const _FloatingNavItem({
-    required this.icon,
-    required this.label,
-    this.isActive = false,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final color = isActive ? AppTheme.primary : AppTheme.textMuted;
-
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: () {},
-        borderRadius: BorderRadius.circular(999),
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 180),
-          padding: EdgeInsets.symmetric(
-            horizontal: isActive ? 14 : 10,
-            vertical: 9,
-          ),
-          decoration: BoxDecoration(
-            color: isActive ? AppTheme.primaryLight : Colors.transparent,
-            borderRadius: BorderRadius.circular(999),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                icon,
-                color: color,
-                size: 24,
-              ),
-              if (isActive) ...[
-                const SizedBox(width: 7),
-                Text(
-                  label,
-                  style: const TextStyle(
-                    color: AppTheme.primary,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
-              ],
             ],
           ),
         ),
